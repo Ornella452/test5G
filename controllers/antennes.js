@@ -7,7 +7,7 @@ async function getAntennas(antennasData) {
 
     const result = await axios(antennasData)
     // console.log('result', result.data)
-    var buf = new Buffer.from(result.data, 'base64');
+   const buf = new Buffer.from(result.data, 'base64');
     //console.log('\n string', buf.toString())
     const bufJson = buf.toString();
     const convertbuf = JSON.parse(bufJson)
@@ -35,14 +35,14 @@ router.get('/getAntennas', async (req, res) => {
         const uriFREE = "https://www.antennesmobiles.fr/get.php?func=antenne&operateurs=FREE%20MOBILE&reseaux=5G&active=0&freq=700,800,900,1800,2100,2600,3500&modifstart=&modifend=&start=&end=&latne=50.07336736319201&lngne=9.758593749999957&latsw=45.654761171771945&lngsw=-0.3488281249999909&support=0"
 
         orangeArray = await getAntennas(uriORANGE)
-        sfrArray = await getAntennas(uriSFR)
-        bouyguesArray = await getAntennas(uriBOUYGUES)
-        freeArray = await getAntennas(uriFREE)
+        //sfrArray = await getAntennas(uriSFR)
+        //bouyguesArray = await getAntennas(uriBOUYGUES)
+       // freeArray = await getAntennas(uriFREE)
 
-        antennasData = orangeArray.concat(sfrArray).concat(bouyguesArray).concat(freeArray)
-
+        //antennasData = orangeArray.concat(sfrArray).concat(bouyguesArray).concat(freeArray)
+        antennasData = orangeArray
         //TEST pour avoir plus de donnes
-        antennasData = antennasData.concat([...antennasData]).concat([...antennasData]).concat([...antennasData])
+        //antennasData = antennasData.concat([...antennasData]).concat([...antennasData]).concat([...antennasData])
 
         res.json({ count: antennasData.length, antennasData })
     } catch (error) {
@@ -68,7 +68,7 @@ router.get('/bouygue', async (req, res) => {
 
         const result = await axios(uriBOUYGUES)
         // console.log('result', result.data)
-        var buf = new Buffer.from(result.data, 'base64');
+        const buf = new Buffer.from(result.data, 'base64');
         //console.log('\n string', buf.toString())
         const bufJson = buf.toString();
         const convertbuf = JSON.parse(bufJson)
@@ -103,7 +103,7 @@ router.get('/bouygue', async (req, res) => {
 
 //             const result = await axios(uriORANGE)
 //             // console.log('result', result.data)
-//             var buf = new Buffer.from(result.data, 'base64');
+//            const buf = new Buffer.from(result.data, 'base64');
 //             //console.log('\n string', buf.toString())
 //             const bufJson = buf.toString();
 //             const convertbuf = JSON.parse(bufJson)
@@ -144,7 +144,7 @@ module.exports = router
 
 //             const result = await axios(uri)
 //             // console.log('result', result.data)
-//             var buf = new Buffer.from(result.data, 'base64');
+//             const buf = new Buffer.from(result.data, 'base64');
 //             console.log('\n string', buf.toString())
 //             const bufJson = buf.toString();
 //             const convertbuf = JSON.parse(bufJson)
